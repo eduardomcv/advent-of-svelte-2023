@@ -10,7 +10,9 @@
 	}
 
 	function searchRecords() {
-		const record = data.records?.find((record) => record.name === name);
+		const trimmedName = name.trim();
+		if (!trimmedName) return;
+		const record = data.records?.find((record) => record.name === trimmedName);
 		found = record !== undefined;
 		if (found) {
 			isNice = record!.tally >= 0;
@@ -20,7 +22,7 @@
 
 <h1>Day 01</h1>
 <form on:submit={searchRecords}>
-	<input type="text" on:keydown={reset} bind:value={name} />
+	<input type="text" on:input={reset} bind:value={name} />
 </form>
 
 {#if found !== null}
